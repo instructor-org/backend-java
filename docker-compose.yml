@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  mongo-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    container_name: mongo-db
+    volumes:
+      - ./db/:/data/db
+  foodapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    container_name: foodapp
+    depends_on:
+      - mongo-db
+
