@@ -16,4 +16,11 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
         this.repository = repository;
     }
+
+
+    @PostMapping("/restaurant")
+    public String saveRestaurant(@RequestBody Restaurant restaurant) {
+        repository.save(restaurant);
+        return "Restaurant created successfully!";
+    }
 }
