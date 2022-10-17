@@ -39,4 +39,9 @@ public class RestaurantController {
     public Optional<Restaurant> modifyRestaurant(@RequestBody Restaurant newRestaurant, @PathVariable String id) {
         return restaurantService.modifyRestaurant(newRestaurant, id);
     }
+
+    @DeleteMapping("/restaurant/{id}")
+    public void deleteRestaurant(@PathVariable String id) {
+        restaurantService.deleteRestaurant(id);
+    }
 }
