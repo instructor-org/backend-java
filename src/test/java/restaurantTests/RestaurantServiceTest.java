@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.doReturn;
-import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class RestaurantServiceTest {
 
@@ -38,7 +37,7 @@ class RestaurantServiceTest {
     }
 
     @Test
-    void getRestaurantByAddress() {
+    void should_get_restaurant_from_address() {
         Restaurant testRestaurant = new Restaurant("Test Burger", "American", "42 Wallaby Way, Sydney");
         doReturn(testRestaurant).when(repository).findByAddress("42 Wallaby Way, Sydney");
 
@@ -48,7 +47,15 @@ class RestaurantServiceTest {
     }
 
     @Test
-    void modifyRestaurant() {
+    void should_not_find_restaurant_if_address_not_found() {
+        Restaurant returned = repository.findByAddress("42 Wallaby Way, Sydney");
+
+        Assertions.assertEquals(returned, null);
+    }
+
+    @Test
+    void should_modify_restaurant_values() {
+
     }
 
     @Test
