@@ -7,7 +7,7 @@ import java.util.Optional;
 @Service
 public class RestaurantService {
 
-    final RestaurantRepository repository;
+    private final RestaurantRepository repository;
 
     public RestaurantService(RestaurantRepository repository) {
         this.repository = repository;
