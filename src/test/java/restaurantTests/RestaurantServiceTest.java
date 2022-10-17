@@ -10,12 +10,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import restaurant.Restaurant;
 import restaurant.RestaurantRepository;
 import restaurant.RestaurantService;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.BDDMockito.given;
+import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class RestaurantServiceTest {
 
@@ -37,6 +38,7 @@ class RestaurantServiceTest {
     }
 
     @Test
+    @DisplayName("Test findByAddress")
     void should_get_restaurant_from_address() {
         Restaurant testRestaurant = new Restaurant("Test Burger", "American", "42 Wallaby Way, Sydney");
         doReturn(testRestaurant).when(repository).findByAddress("42 Wallaby Way, Sydney");
@@ -47,6 +49,7 @@ class RestaurantServiceTest {
     }
 
     @Test
+    @DisplayName("Test address not found")
     void should_not_find_restaurant_if_address_not_found() {
         Restaurant returned = repository.findByAddress("42 Wallaby Way, Sydney");
 
@@ -54,8 +57,8 @@ class RestaurantServiceTest {
     }
 
     @Test
+    @DisplayName("Test modifyRestaurant")
     void should_modify_restaurant_values() {
-
     }
 
     @Test
