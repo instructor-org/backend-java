@@ -1,9 +1,10 @@
 package restaurant;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class RestaurantController {
@@ -22,5 +23,15 @@ public class RestaurantController {
     public String saveRestaurant(@RequestBody Restaurant restaurant) {
         repository.save(restaurant);
         return "Restaurant created successfully!";
+    }
+
+    @GetMapping("/restaurant")
+    public List<Restaurant> getAllRestaurants() {
+        return restaurantService.getAll();
+    }
+
+    @GetMapping("/restaurant/{id}")
+    public Optional<Restaurant> getRestaurantById(@PathVariable String id) {
+        return restaurantService.getRestaurantById(id);
     }
 }
