@@ -34,4 +34,9 @@ public class RestaurantController {
     public Optional<Restaurant> getRestaurantById(@PathVariable String id) {
         return restaurantService.getRestaurantById(id);
     }
+
+    @PutMapping("/restaurant/{id}")
+    public Optional<Restaurant> modifyRestaurant(@RequestBody Restaurant newRestaurant, @PathVariable String id) {
+        return restaurantService.modifyRestaurant(newRestaurant, id);
+    }
 }
