@@ -13,6 +13,7 @@ import restaurant.RestaurantService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.doReturn;
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +38,13 @@ class RestaurantServiceTest {
     }
 
     @Test
-    void getRestaurantById() {
+    void getRestaurantByAddress() {
+        Restaurant testRestaurant = new Restaurant("Test Burger", "American", "42 Wallaby Way, Sydney");
+        doReturn(testRestaurant).when(repository).findByAddress("42 Wallaby Way, Sydney");
+
+        Restaurant returned = repository.findByAddress("42 Wallaby Way, Sydney");
+
+        Assertions.assertEquals("42 Wallaby Way, Sydney", returned.getAddress());
     }
 
     @Test
