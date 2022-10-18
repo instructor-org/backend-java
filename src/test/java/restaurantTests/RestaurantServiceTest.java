@@ -12,11 +12,8 @@ import restaurant.RestaurantRepository;
 import restaurant.RestaurantService;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.BDDMockito.given;
-import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class RestaurantServiceTest {
 
@@ -28,8 +25,8 @@ class RestaurantServiceTest {
     @Test
     @DisplayName("Test getAll")
     void should_get_all_restaurants() {
-        Restaurant firstRestaurant = new Restaurant("Doutor", "Cafe", "12, A Street");
-        Restaurant secondRestaurant = new Restaurant("Kajiken", "Japanese", "11, A Street");
+        Restaurant firstRestaurant = new Restaurant("Doutor", "Cafe", "12, A Street", 4,Arrays.asList("opening"), "url", Arrays.asList("reviews"), "Open");
+        Restaurant secondRestaurant = new Restaurant("Kajiken", "Japanese", "11, A Street", 5, Arrays.asList("opening"), "url", Arrays.asList("reviews"), "Closed");
         doReturn(Arrays.asList(firstRestaurant, secondRestaurant)).when(repository).findAll();
 
         List<Restaurant> restaurants = restaurantService.getAll();
@@ -40,7 +37,7 @@ class RestaurantServiceTest {
     @Test
     @DisplayName("Test findByAddress")
     void should_get_restaurant_from_address() {
-        Restaurant testRestaurant = new Restaurant("Test Burger", "American", "42 Wallaby Way, Sydney");
+        Restaurant testRestaurant = new Restaurant("Test Burger", "American", "42 Wallaby Way, Sydney", 1, Arrays.asList("restaurant"), "url", Arrays.asList("reviews"), "Open");
         doReturn(testRestaurant).when(repository).findByAddress("42 Wallaby Way, Sydney");
 
         Restaurant returned = repository.findByAddress("42 Wallaby Way, Sydney");
