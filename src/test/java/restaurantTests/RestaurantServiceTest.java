@@ -7,9 +7,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import restaurant.Restaurant;
-import restaurant.RestaurantRepository;
-import restaurant.RestaurantService;
+import com.foodapp.restaurant.Restaurant;
+import com.foodapp.restaurant.RestaurantRepository;
+import com.foodapp.restaurant.RestaurantService;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +29,7 @@ class RestaurantServiceTest {
         Restaurant secondRestaurant = new Restaurant("Kajiken", "Japanese", "11, A Street", 5, Arrays.asList("opening"), "url", Arrays.asList("reviews"), "Closed");
         doReturn(Arrays.asList(firstRestaurant, secondRestaurant)).when(repository).findAll();
 
-        List<Restaurant> restaurants = restaurantService.getAll();
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
 
         Assertions.assertEquals(2, restaurants.size());
     }
@@ -37,7 +37,7 @@ class RestaurantServiceTest {
     @Test
     @DisplayName("Test findByAddress")
     void should_get_restaurant_from_address() {
-        Restaurant testRestaurant = new Restaurant("Test Burger", "American", "42 Wallaby Way, Sydney", 1, Arrays.asList("restaurant"), "url", Arrays.asList("reviews"), "Open");
+        Restaurant testRestaurant = new Restaurant("Test Burger", "American", "42 Wallaby Way, Sydney", 1, Arrays.asList("com"), "url", Arrays.asList("reviews"), "Open");
         doReturn(testRestaurant).when(repository).findByAddress("42 Wallaby Way, Sydney");
 
         Restaurant returned = repository.findByAddress("42 Wallaby Way, Sydney");
