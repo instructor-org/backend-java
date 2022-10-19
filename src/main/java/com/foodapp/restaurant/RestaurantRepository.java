@@ -1,4 +1,4 @@
-package restaurant;
+package com.foodapp.restaurant;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
