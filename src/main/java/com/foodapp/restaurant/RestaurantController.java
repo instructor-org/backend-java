@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/food")
 public class RestaurantController {
 
     final RestaurantService restaurantService;
@@ -25,7 +27,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurant")
     public List<Restaurant> getAllRestaurants() {
-        return restaurantService.getAll();
+        return restaurantService.getAllRestaurants();
     }
 
     @GetMapping("/restaurant/{id}")

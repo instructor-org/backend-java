@@ -1,4 +1,4 @@
-package restaurant;
+package com.foodapp.restaurant;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
