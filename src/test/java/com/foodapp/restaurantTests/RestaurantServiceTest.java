@@ -1,4 +1,4 @@
-package restaurantTests;
+package com.foodapp.restaurantTests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
