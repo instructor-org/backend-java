@@ -25,7 +25,7 @@ public class RestaurantController {
         return "Restaurant created successfully!";
     }
 
-    @GetMapping("/restaurant")
+    @GetMapping("restaurant")
     public List<Restaurant> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
