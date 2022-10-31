@@ -22,6 +22,10 @@ public class RestaurantService {
         return repository.findById(id);
     }
 
+    public List<Restaurant> getRestaurantByCuisine(String cuisine) {
+        return repository.findByCuisine(cuisine);
+    }
+
     public Optional<Restaurant> modifyRestaurant(Restaurant newRestaurant, String id) {
         return repository.findById(id).map(restaurant -> {
             restaurant.setName(newRestaurant.getName());
