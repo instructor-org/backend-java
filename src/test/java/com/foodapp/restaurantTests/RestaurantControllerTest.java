@@ -34,7 +34,7 @@ class RestaurantControllerTest {
 
     }
     @Test
-    void saveRestaurant() throws Exception {
+    void test_save_Restaurant() throws Exception {
         Restaurant testaurant = new Restaurant("Hubert's Eggs", "Hawaiian", "46 Wallaby Way, Sydney", 5, Arrays.asList("Opening hours"), "url", Arrays.asList("reviews"), "Open");
         this.mockMvc.perform(post("/food/restaurant")
                         .content(asJson(testaurant))
