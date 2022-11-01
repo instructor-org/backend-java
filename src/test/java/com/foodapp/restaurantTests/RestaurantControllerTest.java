@@ -13,9 +13,7 @@ import com.foodapp.restaurant.RestaurantService;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.data.mongodb.util.BsonUtils.toJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -42,13 +40,8 @@ class RestaurantControllerTest {
         this.mockMvc.perform(post("/food/restaurant")
                         .content(asJson(testaurant))
                         .contentType("application/json"))
-                        .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
-    @Test
-    void whenValidInput_returnsStatus200() throws Exception {
-    }
-
-
     @Test
     void get_Restaurant_By_Cuisine() throws Exception {
         Restaurant testaurant = new Restaurant("Hubert's Eggs", "Hawaiian", "46 Wallaby Way, Sydney", 5, Arrays.asList("Opening hours"), "url", Arrays.asList("reviews"), "Open");
@@ -57,7 +50,6 @@ class RestaurantControllerTest {
                     .contentType("application/json")).andExpect(status().isOk());
         doReturn(Arrays.asList(testaurant)).when(this.restaurantService).getRestaurantByCuisine("Hawaiian");
     }
-
     @Test
     void modifyRestaurant() throws Exception {
         Restaurant testaurant = new Restaurant("Test", "test", "test", 5,Arrays.asList("Opening-Hours"), "test", Arrays.asList("Reviews"), "test");
@@ -66,17 +58,24 @@ class RestaurantControllerTest {
         this.mockMvc.perform(post("/food/restaurant")
                         .content(asJson(testaurant))
                         .contentType("application/json"))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         this.mockMvc.perform(put("/food/restaurant/" + testaurant.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(asJson(testaurantUpdate)))
                 .andExpect(status().isAccepted());
     }
-
     @Test
-    void deleteRestaurant() {
-    }
+    void deleteRestaurant() throws Exception {
+        Restaurant testaurant = new Restaurant("Test", "test", "test", 5,Arrays.asList("Opening-Hours"), "test", Arrays.asList("Reviews"), "test");
+        testaurant.setId("1");
 
+        this.mockMvc.perform(post("/food/restaurant")
+                        .content(asJson(testaurant))
+                        .contentType("application/json"))
+                .andExpect(status().isCreated());
+
+        this.mockMvc.perform((delete("/food/restaurant/" + testaurant.getId()))).andExpect(status().isAccepted());
+    }
     public static String asJson(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
