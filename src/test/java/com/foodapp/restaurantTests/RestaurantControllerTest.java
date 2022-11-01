@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import com.foodapp.restaurant.RestaurantService;
-
-
 import java.util.Arrays;
 
 import static org.mockito.Mockito.doReturn;
@@ -60,7 +59,18 @@ class RestaurantControllerTest {
     }
 
     @Test
-    void modifyRestaurant() {
+    void modifyRestaurant() throws Exception {
+        Restaurant testaurant = new Restaurant("Test", "test", "test", 5,Arrays.asList("Opening-Hours"), "test", Arrays.asList("Reviews"), "test");
+        Restaurant testaurantUpdate = new Restaurant("Cheese", "test", "test", 5,Arrays.asList("Opening-Hours"), "test", Arrays.asList("Reviews"), "test");
+        testaurant.setId("1");
+        this.mockMvc.perform(post("/food/restaurant")
+                        .content(asJson(testaurant))
+                        .contentType("application/json"))
+                .andExpect(status().isOk());
+
+        this.mockMvc.perform(put("/food/restaurant/" + testaurant.getId())
+                .contentType(MediaType.APPLICATION_JSON).content(asJson(testaurantUpdate)))
+                .andExpect(status().isAccepted());
     }
 
     @Test
