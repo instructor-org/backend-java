@@ -21,6 +21,7 @@ public class RestaurantController {
     }
 
     @PostMapping("/restaurant")
+    @ResponseStatus(HttpStatus.CREATED)
     public String saveRestaurant(@RequestBody Restaurant restaurant) {
         repository.save(restaurant);
         return "Restaurant created successfully!";
@@ -47,6 +48,7 @@ public class RestaurantController {
     }
 
     @DeleteMapping("/restaurant/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteRestaurant(@PathVariable String id) {
         restaurantService.deleteRestaurant(id);
     }
