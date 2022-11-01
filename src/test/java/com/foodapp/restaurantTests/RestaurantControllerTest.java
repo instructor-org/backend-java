@@ -13,8 +13,10 @@ import com.foodapp.restaurant.RestaurantService;
 
 import java.util.Arrays;
 
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.data.mongodb.util.BsonUtils.toJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -26,6 +28,8 @@ class RestaurantControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private RestaurantService restaurantService;
+
+
     @Test
     void test_get_all_restaurants() throws Exception {
         this.mockMvc.perform(get("/food/restaurant")
@@ -47,7 +51,12 @@ class RestaurantControllerTest {
 
 
     @Test
-    void getRestaurantById() {
+    void get_Restaurant_By_Cuisine() throws Exception {
+        Restaurant testaurant = new Restaurant("Hubert's Eggs", "Hawaiian", "46 Wallaby Way, Sydney", 5, Arrays.asList("Opening hours"), "url", Arrays.asList("reviews"), "Open");
+
+        this.mockMvc.perform(get("/food/restaurant/cuisine/{cuisine}", "Hawaiian")
+                    .contentType("application/json")).andExpect(status().isOk());
+        doReturn(Arrays.asList(testaurant)).when(this.restaurantService).getRestaurantByCuisine("Hawaiian");
     }
 
     @Test
