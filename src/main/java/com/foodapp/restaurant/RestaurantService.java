@@ -1,5 +1,6 @@
-package restaurant;
+package com.foodapp.restaurant;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +14,16 @@ public class RestaurantService {
         this.repository = repository;
     }
 
-    public List<Restaurant> getAll() {
+    public List<Restaurant> getAllRestaurants() {
         return repository.findAll();
     }
 
     public Optional<Restaurant> getRestaurantById(String id) {
         return repository.findById(id);
+    }
+
+    public List<Restaurant> getRestaurantByCuisine(String cuisine) {
+        return repository.findByCuisine(cuisine);
     }
 
     public Optional<Restaurant> modifyRestaurant(Restaurant newRestaurant, String id) {
