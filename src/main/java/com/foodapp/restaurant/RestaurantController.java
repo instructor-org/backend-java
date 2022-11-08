@@ -1,8 +1,9 @@
 package com.foodapp.restaurant;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,13 @@ public class RestaurantController {
     }
 
     @GetMapping("/restaurant/{id}")
-    public Optional<Restaurant> getRestaurantById(@PathVariable String id) {
+    public Optional<Restaurant> getRestaurantById(@PathVariable String id, HttpServletResponse res) {
+        Optional<Restaurant> restaurant = restaurantService.getRestaurantById(id);
+        if (restaurant.isEmpty()) {
+            res.setStatus(404);
+        } else {
+            res.setStatus(200);
+        }
         return restaurantService.getRestaurantById(id);
     }
     @GetMapping("/restaurant/cuisine/{cuisine}")
@@ -43,8 +50,14 @@ public class RestaurantController {
 
     @PutMapping("/restaurant/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<Restaurant> modifyRestaurant(@RequestBody Restaurant newRestaurant, @PathVariable String id) {
-        return restaurantService.modifyRestaurant(newRestaurant, id);
+    public Optional<Restaurant> modifyRestaurant(@RequestBody Restaurant newRestaurant, @PathVariable String id, HttpServletResponse res) {
+        Optional<Restaurant> restaurant = restaurantService.modifyRestaurant(newRestaurant, id);
+        if (restaurant.isEmpty()) {
+            res.setStatus(404);
+        } else {
+            res.setStatus(202);
+        }
+        return restaurant;
     }
 
     @DeleteMapping("/restaurant/{id}")
